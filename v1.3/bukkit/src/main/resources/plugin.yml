@@ -1,0 +1,21 @@
+name: "Zhou's Restart"
+version: '${project.version}'
+main: cn.mcpanel.restart.RestartPlugin
+api-version: '1.20'
+author: MCPanel
+description: 定时重启 + TPS 卡顿保护（默认每天 04:00 重启，TPS 低于 10 持续 2 分钟自动重启）
+commands:
+  restart:
+    description: 手动重启服务器（带倒计时，玩家会收到提示）
+    usage: |
+      /restart                立即开始倒计时重启（默认 60 秒）
+      /restart 300            300 秒后重启
+      /restart cancel         取消正在倒计时的重启
+      /restart tps            查看当前 TPS 与保护状态
+      /restart status         查看定时重启状态
+      /restart reload         重新加载配置
+    permission: mcpanelrestart.admin
+permissions:
+  mcpanelrestart.admin:
+    description: 允许使用 /restart
+    default: op
