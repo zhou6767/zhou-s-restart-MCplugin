@@ -1,0 +1,34 @@
+# 编译产物
+build/
+target/
+out/
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+.settings/
+.classpath
+.project
+
+# 本地环境
+run/
+plugins/
+logs/
+*.log
+server.properties
+eula.txt
+
+# Windows
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 临时文件
+*.bak
+*.tmp
+*.old
