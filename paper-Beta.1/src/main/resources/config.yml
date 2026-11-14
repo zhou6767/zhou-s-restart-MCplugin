@@ -1,0 +1,76 @@
+# ============================================================
+#  MCPanelRestart（Paper 版）- 定时重启服务器
+#  默认：每天 04:00 重启，并在 03:00 / 03:30 / 03:45 / 03:50 / 03:55 / 03:59 提前通知
+#  修改后执行 /restart reload 生效
+# ============================================================
+restart:
+  # 是否启用每日定时重启
+  enabled: true
+  # 每天几点几分重启（24 小时制）
+  time: "04:00"
+  # 倒计时结束后等待多少秒再调用 Paper 的优雅关服（save-all 之后的缓冲）
+  shutdown-delay-seconds: 5
+  # Folia 环境使用区域调度；普通 Paper/Spigot 自动走 Bukkit 调度，保持 true 即可
+  folia-safe: true
+
+text:
+  # true = 使用 MiniMessage 格式（<red><bold>文字</bold></red>）
+  # false = 使用传统 & 颜色代码（&c &l 等，默认）
+  use-minimessage: false
+
+# ============================================================
+#  TPS 卡顿保护（1.1 新增）
+#  TPS 持续低于阈值时自动倒计时重启
+# ============================================================
+tps-guard:
+  enabled: true
+  # TPS 低于该值开始计时（满 TPS = 20）
+  threshold: 10.0
+  # 连续低于 threshold 多少秒才触发
+  duration-seconds: 120
+  # TPS 回到该值以上清零计时（防抖动）
+  recover-tps: 15.0
+  # 触发后给玩家多少秒准备时间
+  countdown-seconds: 60
+  # 两次 TPS 自动重启的最小间隔（分钟）
+  cooldown-minutes: 30
+  # 启动后多少秒内不检查 TPS
+  warmup-seconds: 120
+  # 提示文案：%tps% 当前 TPS，%time% 剩余时间
+  message: "&c&l[服务器公告] &r服务器卡顿严重（TPS 仅 %tps%），将在 &c%time%&r 后自动重启以恢复正常。"
+  # Paper 静默踢人（不刷被踢提示）
+  quiet-kick: true
+
+# 提前通知时间点与文案（按顺序发送，可加任意条）
+# 占位符：%time% 距离重启还有多久（如 "1 小时"、"5 分钟"、"30 秒"）
+notify:
+  - at: "03:00"
+    message: "&e&l[服务器公告] &r服务器将在 &c1 小时&r 后（&c04:00&r）重启维护，请提前保存进度。"
+  - at: "03:30"
+    message: "&e&l[服务器公告] &r服务器将在 &c30 分钟&r 后（&c04:00&r）重启，请尽快结束当前活动。"
+  - at: "03:45"
+    message: "&e&l[服务器公告] &r服务器将在 &c15 分钟&r 后重启，请回到安全位置。"
+  - at: "03:50"
+    message: "&e&l[服务器公告] &r服务器将在 &c10 分钟&r 后重启。"
+  - at: "03:55"
+    message: "&c&l[服务器公告] &r服务器将在 &c5 分钟&r 后重启，请做好准备，重启后将自动恢复。"
+  - at: "03:59"
+    message: "&c&l[服务器公告] &r服务器将在 &c1 分钟&r 后重启！"
+
+# 倒计时最后阶段（秒）：从第几秒开始逐秒在屏幕中央显示
+countdown:
+  from: 10
+  title: "&c&l%time%"
+  subtitle: "&f服务器即将重启"
+  title-fade-in-ms: 200
+  title-stay-ms: 1200
+  title-fade-out-ms: 400
+
+# 手动 /restart 时的默认倒计时（秒）与提示文案
+manual-default-seconds: 60
+manual-message: "&c&l[服务器公告] &r管理员将在 &c%time%&r 后重启服务器。"
+
+# 重启后的提示（服务器启动 5 分钟内进来的玩家会收到）
+welcome-back:
+  enabled: true
+  message: "&a&l[服务器公告] &r服务器已重启完成，欢迎回来！"
